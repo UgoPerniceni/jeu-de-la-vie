@@ -1,28 +1,43 @@
 from tkinter import *
 from math import *
 
+from models.Cells import Cells
+
 
 class Board:
     # Configurations
     width = 800
     height = 600
+    cellSize = 10
+
+    # Data
+    cellsX = int(floor(width / cellSize))
+    cellsY = int(floor(height / cellSize))
+
+    # Board's array
+    cells = Cells(cellsX, cellsY, cellSize)
+    cells.generate_random_cells_alive()
+    # cells.print_cells()
 
     # Create main windows
     windows = Tk()
     windows.title('Conway\'s Game of Life')
 
+    # Canvas
+    canvas = Canvas(windows, width=width, height=height, background='#bcbcbc')
+
     time = StringVar()
     counter = 0
 
     def generateBoard(self):
-        # Create widget Canvas
-        canvas = Canvas(self.windows, width=self.width, height=self.height, background='white')
-        canvas.pack(padx=5, pady=5)
+        # Create grid
+        self.grid()
+        self.canvas.pack(padx=5, pady=5)
 
         self.addTimer()
         self.addButtons()
 
-        self.refreshTime()
+        self.cycle()
 
         self.windows.mainloop()
 
@@ -56,7 +71,26 @@ class Board:
 
         return '{}:{}:{}'.format(h, m, s)
 
-    def refreshTime(self):
+    def cycle(self):
         self.counter = self.counter + 1
         self.time.set(self.formatTime())
-        self.windows.after(1000, self.refreshTime)
+
+        self.updateCells()
+        self.windows.after(1000, self.cycle)
+
+    def grid(self):
+        x = 0
+        y = 0
+
+        while x < self.cellsX:
+            self.canvas.create_line(x * self.cellSize, 0, x * self.cellSize, self.height, width=1, fill='black')
+            x += 1
+
+        while y < self.cellsY:
+            self.canvas.create_line(0, y * self.cellSize, self.width, y * self.cellSize, width=1, fill='black')
+            y += 1
+
+    def updateCells(self):
+        for cell in self.cells.rows:
+            if cell.alive:
+                self.canvas.create_rectangle(cell.x, cell.y, cell.x + self.cellSize, cell.y + self.cellSize, fill='black')
