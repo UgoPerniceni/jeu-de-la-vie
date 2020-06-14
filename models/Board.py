@@ -57,8 +57,13 @@ class Board:
         btnLeave = Button(self.windows, text='Leave', height=2, width=6, command=self.windows.destroy)
         btnLeave.pack(side=RIGHT, padx=5, pady=5)
 
+    # Timer
     def addTimer(self):
         Label(self.windows, textvariable=self.time).pack()
+
+    def updateTimer(self):
+        self.counter = self.counter + 1
+        self.time.set(self.formatTime())
 
     def formatTime(self):
         h = floor(self.counter / 3600)
@@ -72,10 +77,10 @@ class Board:
         return '{}:{}:{}'.format(h, m, s)
 
     def cycle(self):
-        self.counter = self.counter + 1
-        self.time.set(self.formatTime())
+        self.updateTimer()
 
-        self.updateCells()
+        self.reDrawCanvas()
+
         self.windows.after(1000, self.cycle)
 
     def grid(self):
@@ -90,7 +95,16 @@ class Board:
             self.canvas.create_line(0, y * self.cellSize, self.width, y * self.cellSize, width=1, fill='black')
             y += 1
 
-    def updateCells(self):
+    def show_cells_alive(self):
         for cell in self.cells.rows:
             if cell.alive:
                 self.canvas.create_rectangle(cell.x, cell.y, cell.x + self.cellSize, cell.y + self.cellSize, fill='black')
+
+    def reDrawCanvas(self):
+        self.canvas.delete(ALL)
+        self.grid()
+
+        # self.cells.kill_cells()
+        # self.cells.generate_random_cells_alive()
+
+        self.show_cells_alive()

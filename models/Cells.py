@@ -16,12 +16,17 @@ class Cells:
             self.cols.append(self.rows)
         # self.print_cells()
 
-    def print_cells(self):
-        for cell in self.rows:
-            print(cell.toString())
-
     def generate_random_cells_alive(self):
         for cell in self.rows:
             chance = random.random()
+            # 10% chance
             if chance*100 < 10:
                 cell.alive = True
+
+    def kill_cells(self):
+        for cell in self.rows:
+            cell.alive = False
+
+    def print_cells(self):
+        for cell in self.rows:
+            print(cell.toString())
