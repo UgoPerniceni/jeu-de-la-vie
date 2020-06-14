@@ -10,6 +10,8 @@ class Board:
     height = 600
     cellSize = 10
 
+    animation = True
+
     # Data
     cellsX = int(floor(width / cellSize))
     cellsY = int(floor(height / cellSize))
@@ -29,7 +31,7 @@ class Board:
     time = StringVar()
     counter = 0
 
-    def generateBoard(self):
+    def generateBoard(self, animation=True):
         # Create grid
         self.grid()
         self.canvas.pack(padx=5, pady=5)
@@ -63,7 +65,7 @@ class Board:
 
     def updateTimer(self):
         self.counter = self.counter + 1
-        self.time.set(self.formatTime())
+        self.time.set("{}\nCells alive: {}\n Cycle {}". format(self.formatTime(), self.cells.count_cells_alive(), self.counter))
 
     def formatTime(self):
         h = floor(self.counter / 3600)
@@ -98,13 +100,14 @@ class Board:
     def show_cells_alive(self):
         for cell in self.cells.rows:
             if cell.alive:
-                self.canvas.create_rectangle(cell.x, cell.y, cell.x + self.cellSize, cell.y + self.cellSize, fill='black')
+                self.canvas.create_rectangle(cell.x, cell.y, cell.x + self.cellSize, cell.y + self.cellSize,
+                                             fill='black')
 
     def reDrawCanvas(self):
         self.canvas.delete(ALL)
         self.grid()
 
-        # self.cells.kill_cells()
-        # self.cells.generate_random_cells_alive()
+        self.cells.kill_cells()
+        self.cells.generate_random_cells_alive()
 
         self.show_cells_alive()
