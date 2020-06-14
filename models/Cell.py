@@ -1,8 +1,17 @@
 class Cell:
-    def __init__(self, x, y, alive=False):
-        self.x = x
-        self.y = y
+    id = 0
+
+    def __init__(self, x, y, alive=False, cellSize=10):
+        self.row = x
+        self.col = y
+
+        self.x = x * cellSize
+        self.y = y * cellSize
+
         self.alive = alive
 
+        Cell.id += 1
+        self.id = Cell.id
+
     def toString(self):
-        return 'x = {}, y = {}, state = {}'.format(self.x, self.y, self.alive)
+        return 'Cell n°{} (Cells[{}, {}], Position (X={}Y={}),alive = {})'.format(self.id, self.row, self.col, self.x, self.y, self.alive)
