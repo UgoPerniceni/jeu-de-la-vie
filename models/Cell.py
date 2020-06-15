@@ -14,4 +14,4 @@ class Cell:
         self.id = Cell.id
 
     def toString(self):
-        return 'Cell n°{} (Cells[{}, {}], Position (X={}Y={}),alive = {})'.format(self.id, self.row, self.col, self.x, self.y, self.alive)
+        return 'Cell n°{} (Cells[r: {}, c: {}], Position (X={}, Y={}),alive = {})'.format(self.id, self.row, self.col, self.x, self.y, self.alive)

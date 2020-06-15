@@ -1,40 +1,102 @@
 from models.Cell import Cell
 import random
+import numpy as np
 
 
 class Cells:
-    cols = []
-    rows = []
+
+    cell_die = []
+    cell_born = []
 
     def __init__(self, cellsX, cellsY, cellSize):
-        self.cells_x_max = cellsX
-        self.cells_y_max = cellsY
+        self.cells_x_max = cellsX - 1
+        self.cells_y_max = cellsY - 1
 
-        for i in range(0, cellsX):
+        self.cells2d = np.empty(shape=(cellsX, cellsY), dtype=object)
+
+        for x in range(0, cellsX):
             for y in range(0, cellsY):
-                self.rows.append(Cell(i, y, False, cellSize))
-            self.cols.append(self.rows)
-        # self.print_cells()
+                self.cells2d[x, y] = Cell(x, y, False, cellSize)
+
+    def gen_cells(self):
+        self.cells2d[40][30].alive = True
+        self.cells2d[40][31].alive = True
+        self.cells2d[40][32].alive = True
 
     def generate_random_cells_alive(self, percentage=10):
-        for cell in self.rows:
-            chance = random.random()
-            # 10% chance
-            if chance*100 < percentage:
-                cell.alive = True
+        for i in range(0, self.cells_x_max):
+            for y in range(0, self.cells_y_max):
+                chance = random.random()
+                # 10% chance
+                if chance * 100 < percentage:
+                    self.cells2d[i][y].alive = True
 
     def kill_cells(self):
-        for cell in self.rows:
-            cell.alive = False
+        for i in range(0, self.cells_x_max):
+            for y in range(0, self.cells_y_max):
+                self.cells2d[i][y].alive = False
 
     def count_cells_alive(self):
         alive = 0
-        for cell in self.rows:
-            if cell.alive:
-                alive = alive + 1
+        for i in range(0, self.cells_x_max):
+            for y in range(0, self.cells_y_max):
+                if self.cells2d[i][y].alive:
+                    alive = alive + 1
         return alive
 
+    def get_neighbours(self, x, y):
+        X = self.cells_x_max
+        Y = self.cells_y_max
+
+        neighbors = [
+            (x2, y2)
+            for x2 in range(x - 1, x + 2)
+            for y2 in range(y - 1, y + 2)
+            if (-1 < x <= X and -1 < y <= Y and
+                (x != x2 or y != y2) and
+                (0 <= x2 <= X) and
+                (0 <= y2 <= Y))
+        ]
+
+        return neighbors
+
+    def get_neighbours_alive(self, x, y):
+        alive = 0
+        neighbors = self.get_neighbours(x, y)
+        for tup in neighbors:
+            if self.cells2d[tup[0]][tup[1]].alive:
+                alive = alive + 1
+
+        return alive
+
+    def update_cell_state(self):
+        self.cell_die.clear()
+        self.cell_born.clear()
+
+        for x in range(0, self.cells_x_max):
+            for y in range(0, self.cells_y_max):
+                self.rule_cell(x, y)
+
+        for tup in self.cell_die:
+            self.cells2d[tup[0]][tup[1]].alive = False
+        for tup in self.cell_born:
+            self.cells2d[tup[0]][tup[1]].alive = True
+
+    def rule_cell(self, x, y):
+        neighbours_alive = self.get_neighbours_alive(x, y)
+        # Rule 1 -> Si une cellule a exactement trois voisines vivantes, elle est vivante à l’étape suivante.
+        if neighbours_alive == 3:
+            # self.cells2d[x][y].alive = True
+            self.cell_born.append((x, y))
+        # Rule 2 -> Si une cellule a exactement deux voisines vivantes, elle reste dans son état actuel à l’étape suivante.
+        # elif self.get_neighbours_alive(x, y) == 2:
+        #     self.cells2d[x][y].alive = self.cells2d[x][y].alive
+        # Rule 3 -> Si une cellule a strictement moins de deux ou strictement plus de trois voisines vivantes, elle est morte à l’étape suivante.
+        elif neighbours_alive < 2 or neighbours_alive > 3:
+            # self.cells2d[x][y].alive = False
+            self.cell_die.append((x, y))
 
     def print_cells(self):
-        for cell in self.rows:
-            print(cell.toString())
+        for i in range(0, self.cells_x_max):
+            for y in range(0, self.cells_y_max):
+                print(self.cells2d[i][y].toString())

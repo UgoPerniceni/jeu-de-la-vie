@@ -18,12 +18,11 @@ class Board:
 
     # Board's array
     cells = Cells(cellsX, cellsY, cellSize)
-    cells.generate_random_cells_alive()
-    # cells.print_cells()
 
     # Create main windows
     windows = Tk()
     windows.title('Conway\'s Game of Life')
+    windows.resizable(False, False)
 
     # Canvas
     canvas = Canvas(windows, width=width, height=height, background='#bcbcbc')
@@ -31,13 +30,15 @@ class Board:
     time = StringVar()
     counter = 0
 
-    def generateBoard(self, animation=True):
-        # Create grid
-        self.grid()
+    def generateBoard(self):
         self.canvas.pack(padx=5, pady=5)
 
         self.addTimer()
         self.addButtons()
+
+        self.cells.kill_cells()
+        # self.cells.gen_cells()
+        self.cells.generate_random_cells_alive()
 
         self.cycle()
 
@@ -65,7 +66,8 @@ class Board:
 
     def updateTimer(self):
         self.counter = self.counter + 1
-        self.time.set("{}\nCells alive: {}\n Cycle {}". format(self.formatTime(), self.cells.count_cells_alive(), self.counter))
+        self.time.set(
+            "{}\nCells alive: {}\n Cycle {}".format(self.formatTime(), self.cells.count_cells_alive(), self.counter))
 
     def formatTime(self):
         h = floor(self.counter / 3600)
@@ -98,16 +100,19 @@ class Board:
             y += 1
 
     def show_cells_alive(self):
-        for cell in self.cells.rows:
-            if cell.alive:
-                self.canvas.create_rectangle(cell.x, cell.y, cell.x + self.cellSize, cell.y + self.cellSize,
-                                             fill='black')
+        for i in range(0, self.cells.cells_x_max):
+            for y in range(0, self.cells.cells_y_max):
+                if self.cells.cells2d[i][y].alive:
+                    cell = self.cells.cells2d[i][y]
+                    self.canvas.create_rectangle(cell.x, cell.y, cell.x + self.cellSize, cell.y + self.cellSize,
+                                                 fill='black')
 
     def reDrawCanvas(self):
         self.canvas.delete(ALL)
         self.grid()
 
-        self.cells.kill_cells()
-        self.cells.generate_random_cells_alive()
+        self.cells.update_cell_state()
+        # self.cells.kill_cells()
+        # self.cells.generate_random_cells_alive()
 
         self.show_cells_alive()
