@@ -37,8 +37,8 @@ class Board:
         self.addButtons()
 
         self.cells.kill_cells()
+        # self.cells.gen_cells()
         self.cells.generate_random_cells_alive()
-
 
         self.cycle()
 

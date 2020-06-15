@@ -5,6 +5,9 @@ import numpy as np
 
 class Cells:
 
+    cell_die = []
+    cell_born = []
+
     def __init__(self, cellsX, cellsY, cellSize):
         self.cells_x_max = cellsX - 1
         self.cells_y_max = cellsY - 1
@@ -14,6 +17,11 @@ class Cells:
         for x in range(0, cellsX):
             for y in range(0, cellsY):
                 self.cells2d[x, y] = Cell(x, y, False, cellSize)
+
+    def gen_cells(self):
+        self.cells2d[40][30].alive = True
+        self.cells2d[40][31].alive = True
+        self.cells2d[40][32].alive = True
 
     def generate_random_cells_alive(self, percentage=10):
         for i in range(0, self.cells_x_max):
@@ -35,9 +43,6 @@ class Cells:
                 if self.cells2d[i][y].alive:
                     alive = alive + 1
         return alive
-
-    # def get_cell_by_id(self, id):
-    #     print(self.rows[id].toString())
 
     def get_neighbours(self, x, y):
         X = self.cells_x_max
@@ -65,20 +70,31 @@ class Cells:
         return alive
 
     def update_cell_state(self):
+        self.cell_die.clear()
+        self.cell_born.clear()
+
         for x in range(0, self.cells_x_max):
             for y in range(0, self.cells_y_max):
                 self.rule_cell(x, y)
 
+        for tup in self.cell_die:
+            self.cells2d[tup[0]][tup[1]].alive = False
+        for tup in self.cell_born:
+            self.cells2d[tup[0]][tup[1]].alive = True
+
     def rule_cell(self, x, y):
+        neighbours_alive = self.get_neighbours_alive(x, y)
         # Rule 1 -> Si une cellule a exactement trois voisines vivantes, elle est vivante à l’étape suivante.
-        if self.get_neighbours_alive(x, y) == 3:
-            self.cells2d[x][y].alive = True
+        if neighbours_alive == 3:
+            # self.cells2d[x][y].alive = True
+            self.cell_born.append((x, y))
         # Rule 2 -> Si une cellule a exactement deux voisines vivantes, elle reste dans son état actuel à l’étape suivante.
         # elif self.get_neighbours_alive(x, y) == 2:
         #     self.cells2d[x][y].alive = self.cells2d[x][y].alive
         # Rule 3 -> Si une cellule a strictement moins de deux ou strictement plus de trois voisines vivantes, elle est morte à l’étape suivante.
-        elif self.get_neighbours_alive(x, y) < 2 or self.get_neighbours_alive(x, y) > 3:
-            self.cells2d[x][y].alive = False
+        elif neighbours_alive < 2 or neighbours_alive > 3:
+            # self.cells2d[x][y].alive = False
+            self.cell_die.append((x, y))
 
     def print_cells(self):
         for i in range(0, self.cells_x_max):
