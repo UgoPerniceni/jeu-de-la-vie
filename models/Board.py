@@ -104,8 +104,8 @@ class Board:
     def show_cells_alive(self):
         for i in range(0, self.cells.cells_x_max):
             for y in range(0, self.cells.cells_y_max):
-                if self.cells.numpy[i][y].alive:
-                    cell = self.cells.numpy[i][y]
+                if self.cells.cells2d[i][y].alive:
+                    cell = self.cells.cells2d[i][y]
                     self.canvas.create_rectangle(cell.x, cell.y, cell.x + self.cellSize, cell.y + self.cellSize,
                                                  fill='black')
 
