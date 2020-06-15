@@ -1,10 +1,9 @@
 from models.Cell import Cell
-import random
+from random import randint
 import numpy as np
 
 
 class Cells:
-
     cell_die = []
     cell_born = []
 
@@ -23,13 +22,22 @@ class Cells:
         self.cells2d[40][31].alive = True
         self.cells2d[40][32].alive = True
 
-    def generate_random_cells_alive(self, percentage=10):
-        for i in range(0, self.cells_x_max):
-            for y in range(0, self.cells_y_max):
-                chance = random.random()
-                # 10% chance
-                if chance * 100 < percentage:
-                    self.cells2d[i][y].alive = True
+    def generate_random_cells_alive(self, numberCell=400):
+        # for i in range(0, self.cells_x_max):
+        #     for y in range(0, self.cells_y_max):
+        #         chance = random.random()
+        #         # 10% chance
+        #         if chance * 100 < percentage:
+        #             self.cells2d[i][y].alive = True
+        count = 0
+
+        while count < numberCell:
+            randX = randint(0, 79)
+            randY = randint(0, 59)
+
+            if not self.cells2d[randX][randY].alive:
+                self.cells2d[randX][randY].alive = True
+                count = count + 1
 
     def kill_cells(self):
         for i in range(0, self.cells_x_max):

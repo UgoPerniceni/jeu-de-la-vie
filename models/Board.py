@@ -1,5 +1,8 @@
-from tkinter import *
 from math import *
+from tkinter import *
+
+import os
+import pygame
 
 from models.Cells import Cells
 
@@ -9,8 +12,8 @@ class Board:
     width = 800
     height = 600
     cellSize = 10
-
-    animation = True
+    numberOfCellGenerate = 750
+    speed = 500
 
     # Data
     cellsX = int(floor(width / cellSize))
@@ -24,6 +27,16 @@ class Board:
     windows.title('Conway\'s Game of Life')
     windows.resizable(False, False)
 
+    # get project's root
+    ROOT_DIR = (os.path.dirname(os.path.abspath(__file__)))[0:-7]
+    # pygame
+    pygame.mixer.init()
+    pygame.mixer.music.load(str(ROOT_DIR) + "/assets/music.mp3")
+    pygame.mixer.music.set_volume(0.5)
+
+    music = IntVar()
+    music.set(0)
+
     # Canvas
     canvas = Canvas(windows, width=width, height=height, background='#bcbcbc')
 
@@ -36,38 +49,36 @@ class Board:
         self.addTimer()
         self.addButtons()
 
-        self.cells.kill_cells()
-        # self.cells.gen_cells()
-        self.cells.generate_random_cells_alive()
+        self.cells.generate_random_cells_alive(self.numberOfCellGenerate)
 
+        self.timer()
         self.cycle()
 
         self.windows.mainloop()
 
     def addButtons(self):
-        btnStart = Button(self.windows, text='🞂', height=2, width=6, command=self.windows.destroy)
-        btnStart.pack(side=LEFT, padx=5, pady=5)
-
-        btnPause = Button(self.windows, text='⏸', height=2, width=6, command=self.windows.destroy)
-        btnPause.pack(side=LEFT, padx=5, pady=5)
-
-        btnStop = Button(self.windows, text='⏹', height=2, width=6, command=self.windows.destroy)
-        btnStop.pack(side=LEFT, padx=5, pady=5)
-
         btnConfiguration = Button(self.windows, text='Configuration', height=2, width=12, command=self.windows.destroy)
-        btnConfiguration.pack(side=RIGHT, padx=5, pady=5)
+        btnConfiguration.pack(side=LEFT, padx=5, pady=5)
+
+        Checkbutton(self.windows, text="Music", variable=self.music, command=self.play_music).pack(side=LEFT, padx=5,
+                                                                                                   pady=5)
 
         btnLeave = Button(self.windows, text='Leave', height=2, width=6, command=self.windows.destroy)
         btnLeave.pack(side=RIGHT, padx=5, pady=5)
 
     # Timer
+    def timer(self):
+        self.updateTimer()
+
+        self.windows.after(1000, self.timer)
+
     def addTimer(self):
         Label(self.windows, textvariable=self.time).pack()
 
     def updateTimer(self):
         self.counter = self.counter + 1
         self.time.set(
-            "{}\nCells alive: {}\n Cycle {}".format(self.formatTime(), self.cells.count_cells_alive(), self.counter))
+            "{}\nCells alive: {}".format(self.formatTime(), self.cells.count_cells_alive()))
 
     def formatTime(self):
         h = floor(self.counter / 3600)
@@ -81,11 +92,8 @@ class Board:
         return '{}:{}:{}'.format(h, m, s)
 
     def cycle(self):
-        self.updateTimer()
-
         self.reDrawCanvas()
-
-        self.windows.after(1000, self.cycle)
+        self.windows.after(self.speed, self.cycle)
 
     def grid(self):
         x = 0
@@ -112,7 +120,15 @@ class Board:
         self.grid()
 
         self.cells.update_cell_state()
-        # self.cells.kill_cells()
-        # self.cells.generate_random_cells_alive()
 
         self.show_cells_alive()
+
+    def play_music(self):
+        print(self.music.get())
+        if self.music.get() == 1:
+            # 1 (ON)
+            # loop
+            pygame.mixer.music.play(-1, 3)
+        else:
+            # 0 (OFF)
+            pygame.mixer.music.stop()
