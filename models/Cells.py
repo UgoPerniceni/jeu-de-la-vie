@@ -1,40 +1,51 @@
 from models.Cell import Cell
 import random
+import numpy as np
 
 
 class Cells:
-    cols = []
-    rows = []
 
     def __init__(self, cellsX, cellsY, cellSize):
         self.cells_x_max = cellsX
         self.cells_y_max = cellsY
 
+        self.numpy = np.empty(shape=(cellsX, cellsY), dtype=object)
+
         for i in range(0, cellsX):
             for y in range(0, cellsY):
-                self.rows.append(Cell(i, y, False, cellSize))
-            self.cols.append(self.rows)
-        # self.print_cells()
+                self.numpy[i, y] = Cell(i, y, False, cellSize)
 
     def generate_random_cells_alive(self, percentage=10):
-        for cell in self.rows:
-            chance = random.random()
-            # 10% chance
-            if chance*100 < percentage:
-                cell.alive = True
+        for i in range(0, self.cells_x_max):
+            for y in range(0, self.cells_y_max):
+                chance = random.random()
+                # 10% chance
+                if chance * 100 < percentage:
+                    self.numpy[i][y].alive = True
 
     def kill_cells(self):
-        for cell in self.rows:
-            cell.alive = False
+        for i in range(0, self.cells_x_max):
+            for y in range(0, self.cells_y_max):
+                self.numpy[i][y].alive = False
 
     def count_cells_alive(self):
         alive = 0
-        for cell in self.rows:
-            if cell.alive:
-                alive = alive + 1
+        for i in range(0, self.cells_x_max):
+            for y in range(0, self.cells_y_max):
+                if self.numpy[i][y].alive:
+                    alive = alive + 1
         return alive
 
+    # def get_cell_by_id(self, id):
+    #     print(self.rows[id].toString())
+
+    def get_neighbours(self, row, col):
+
+        print(self.numpy[1][1].toString())
+        print(self.numpy[1][2].toString())
+        print(self.numpy[2][3].toString())
 
     def print_cells(self):
-        for cell in self.rows:
-            print(cell.toString())
+        for i in range(0, self.cells_x_max):
+            for y in range(0, self.cells_y_max):
+                print(self.numpy[i][y].toString())

@@ -24,6 +24,7 @@ class Board:
     # Create main windows
     windows = Tk()
     windows.title('Conway\'s Game of Life')
+    windows.resizable(False, False)
 
     # Canvas
     canvas = Canvas(windows, width=width, height=height, background='#bcbcbc')
@@ -31,7 +32,7 @@ class Board:
     time = StringVar()
     counter = 0
 
-    def generateBoard(self, animation=True):
+    def generateBoard(self):
         # Create grid
         self.grid()
         self.canvas.pack(padx=5, pady=5)
@@ -65,7 +66,8 @@ class Board:
 
     def updateTimer(self):
         self.counter = self.counter + 1
-        self.time.set("{}\nCells alive: {}\n Cycle {}". format(self.formatTime(), self.cells.count_cells_alive(), self.counter))
+        self.time.set(
+            "{}\nCells alive: {}\n Cycle {}".format(self.formatTime(), self.cells.count_cells_alive(), self.counter))
 
     def formatTime(self):
         h = floor(self.counter / 3600)
@@ -83,6 +85,8 @@ class Board:
 
         self.reDrawCanvas()
 
+        self.cells.get_neighbours(10, 10)
+
         self.windows.after(1000, self.cycle)
 
     def grid(self):
@@ -98,10 +102,12 @@ class Board:
             y += 1
 
     def show_cells_alive(self):
-        for cell in self.cells.rows:
-            if cell.alive:
-                self.canvas.create_rectangle(cell.x, cell.y, cell.x + self.cellSize, cell.y + self.cellSize,
-                                             fill='black')
+        for i in range(0, self.cells.cells_x_max):
+            for y in range(0, self.cells.cells_y_max):
+                if self.cells.numpy[i][y].alive:
+                    cell = self.cells.numpy[i][y]
+                    self.canvas.create_rectangle(cell.x, cell.y, cell.x + self.cellSize, cell.y + self.cellSize,
+                                                 fill='black')
 
     def reDrawCanvas(self):
         self.canvas.delete(ALL)
