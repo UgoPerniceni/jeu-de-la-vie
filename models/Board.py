@@ -18,8 +18,6 @@ class Board:
 
     # Board's array
     cells = Cells(cellsX, cellsY, cellSize)
-    cells.generate_random_cells_alive()
-    # cells.print_cells()
 
     # Create main windows
     windows = Tk()
@@ -33,12 +31,14 @@ class Board:
     counter = 0
 
     def generateBoard(self):
-        # Create grid
-        self.grid()
         self.canvas.pack(padx=5, pady=5)
 
         self.addTimer()
         self.addButtons()
+
+        self.cells.kill_cells()
+        self.cells.generate_random_cells_alive()
+
 
         self.cycle()
 
@@ -85,14 +85,6 @@ class Board:
 
         self.reDrawCanvas()
 
-        # abs_coord_x = self.windows.winfo_pointerx() - self.windows.winfo_rootx()
-        # abs_coord_y = self.windows.winfo_pointery() - self.windows.winfo_rooty()
-        #
-        # print(abs_coord_x)
-        # print(abs_coord_y)
-
-        print(self.cells.get_neighbours(1, 0))
-
         self.windows.after(1000, self.cycle)
 
     def grid(self):
@@ -119,7 +111,8 @@ class Board:
         self.canvas.delete(ALL)
         self.grid()
 
-        self.cells.kill_cells()
-        self.cells.generate_random_cells_alive()
+        self.cells.update_cell_state()
+        # self.cells.kill_cells()
+        # self.cells.generate_random_cells_alive()
 
         self.show_cells_alive()

@@ -6,8 +6,8 @@ import numpy as np
 class Cells:
 
     def __init__(self, cellsX, cellsY, cellSize):
-        self.cells_x_max = cellsX
-        self.cells_y_max = cellsY
+        self.cells_x_max = cellsX - 1
+        self.cells_y_max = cellsY - 1
 
         self.cells2d = np.empty(shape=(cellsX, cellsY), dtype=object)
 
@@ -54,6 +54,31 @@ class Cells:
         ]
 
         return neighbors
+
+    def get_neighbours_alive(self, x, y):
+        alive = 0
+        neighbors = self.get_neighbours(x, y)
+        for tup in neighbors:
+            if self.cells2d[tup[0]][tup[1]].alive:
+                alive = alive + 1
+
+        return alive
+
+    def update_cell_state(self):
+        for x in range(0, self.cells_x_max):
+            for y in range(0, self.cells_y_max):
+                self.rule_cell(x, y)
+
+    def rule_cell(self, x, y):
+        # Rule 1 -> Si une cellule a exactement trois voisines vivantes, elle est vivante à l’étape suivante.
+        if self.get_neighbours_alive(x, y) == 3:
+            self.cells2d[x][y].alive = True
+        # Rule 2 -> Si une cellule a exactement deux voisines vivantes, elle reste dans son état actuel à l’étape suivante.
+        # elif self.get_neighbours_alive(x, y) == 2:
+        #     self.cells2d[x][y].alive = self.cells2d[x][y].alive
+        # Rule 3 -> Si une cellule a strictement moins de deux ou strictement plus de trois voisines vivantes, elle est morte à l’étape suivante.
+        elif self.get_neighbours_alive(x, y) < 2 or self.get_neighbours_alive(x, y) > 3:
+            self.cells2d[x][y].alive = False
 
     def print_cells(self):
         for i in range(0, self.cells_x_max):
