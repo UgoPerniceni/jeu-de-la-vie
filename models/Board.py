@@ -85,7 +85,13 @@ class Board:
 
         self.reDrawCanvas()
 
-        self.cells.get_neighbours(10, 10)
+        # abs_coord_x = self.windows.winfo_pointerx() - self.windows.winfo_rootx()
+        # abs_coord_y = self.windows.winfo_pointery() - self.windows.winfo_rooty()
+        #
+        # print(abs_coord_x)
+        # print(abs_coord_y)
+
+        print(self.cells.get_neighbours(1, 0))
 
         self.windows.after(1000, self.cycle)
 
