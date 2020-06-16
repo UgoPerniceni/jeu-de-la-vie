@@ -1,8 +1,7 @@
 from models.Board import Board
-from models.Start import Start
+from models.File import File
 
-# app = Start()
-# app.mainloop()
+f = File()
+print(f.getProp("speed"))
 
-b = Board()
-b.generateBoard()
+Board().generateBoard()
