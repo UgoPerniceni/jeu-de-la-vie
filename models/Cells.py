@@ -112,6 +112,23 @@ class Cells:
         self.cells2d[21][18].setAlive()
         self.cells2d[22][19].setAlive()
 
+    def draw_spaceship_Light_weight(self):
+        self.cells2d[21][20].setAlive()
+        self.cells2d[22][20].setAlive()
+
+        self.cells2d[20][21].setAlive()
+        self.cells2d[21][21].setAlive()
+        self.cells2d[22][21].setAlive()
+        self.cells2d[23][21].setAlive()
+
+        self.cells2d[20][22].setAlive()
+        self.cells2d[21][22].setAlive()
+        self.cells2d[23][22].setAlive()
+        self.cells2d[24][22].setAlive()
+
+        self.cells2d[22][23].setAlive()
+        self.cells2d[23][23].setAlive()
+
     def print_cells(self):
         for i in range(0, self.cells_x_max):
             for y in range(0, self.cells_y_max):

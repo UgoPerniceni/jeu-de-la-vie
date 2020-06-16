@@ -63,7 +63,7 @@ class Board:
 
         menu1 = Menu(menubar, tearoff=0)
         menu1.add_command(label="Glider", command=self.cells.draw_spaceship_Glider)
-        menu1.add_command(label="Light-weight", command=self.windows.quit)
+        menu1.add_command(label="Light-weight", command=self.cells.draw_spaceship_Light_weight)
         menu1.add_separator()
         menu1.add_command(label="Heavy-weight", command=self.windows.quit)
         menubar.add_cascade(label="Spaceships", menu=menu1)
