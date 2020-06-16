@@ -57,8 +57,22 @@ class Board:
         self.windows.mainloop()
 
     def addButtons(self):
+        menubar = Menu(self.windows)
+
+        menu1 = Menu(menubar, tearoff=0)
+        menu1.add_command(label="Glider", command=self.windows.quit)
+        menu1.add_command(label="Light-weight", command=self.windows.quit)
+        menu1.add_separator()
+        menu1.add_command(label="Heavy-weight", command=self.windows.quit)
+        menubar.add_cascade(label="Spaceship", menu=menu1)
+
+        self.windows.config(menu=menubar)
+
         btnConfiguration = Button(self.windows, text='Configuration', height=2, width=12, command=self.windows.destroy)
         btnConfiguration.pack(side=LEFT, padx=5, pady=5)
+
+        btnGenerate = Button(self.windows, text='Generate', height=2, width=12, command=self.windows.destroy)
+        btnGenerate.pack(side=LEFT, padx=5, pady=5)
 
         Checkbutton(self.windows, text="Music", variable=self.music, command=self.play_music).pack(side=LEFT, padx=5,
                                                                                                    pady=5)
