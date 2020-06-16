@@ -70,7 +70,10 @@ class Board:
 
         self.windows.config(menu=menubar, padx=20, pady=20)
 
-        btnClear = Button(self.windows, text='Clear cells', height=2, width=12, command=self.cells.kill_cells)
+        btnGenerate = Button(self.windows, text='Generate', height=2, width=12, command=self.cells.generate_random_cells_alive)
+        btnGenerate.pack(side=LEFT, padx=5, pady=5)
+
+        btnClear = Button(self.windows, text='Clear', height=2, width=12, command=self.cells.kill_cells)
         btnClear.pack(side=LEFT, padx=5, pady=5)
 
         btnConfiguration = Button(self.windows, text='Configuration', height=2, width=12, command=self.windows.destroy)

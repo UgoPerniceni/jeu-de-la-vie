@@ -23,12 +23,6 @@ class Cells:
         self.cells2d[40][32].alive = True
 
     def generate_random_cells_alive(self, numberCell=400):
-        # for i in range(0, self.cells_x_max):
-        #     for y in range(0, self.cells_y_max):
-        #         chance = random.random()
-        #         # 10% chance
-        #         if chance * 100 < percentage:
-        #             self.cells2d[i][y].alive = True
         count = 0
 
         while count < numberCell:
