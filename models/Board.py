@@ -61,30 +61,31 @@ class Board:
         menubar = Menu(self.windows)
 
         menu1 = Menu(menubar, tearoff=0)
-        menu1.add_command(label="Glider", command=self.cells.draw_spaceship_Glider)
-        menu1.add_command(label="Light-weight", command=self.cells.draw_spaceship_Light_weight)
+        menu1.add_command(label="Glider", command=self.cells.draw_spaceship_glider)
+        menu1.add_command(label="Light-weight", command=self.cells.draw_spaceship_light_weight)
         menu1.add_separator()
-        menu1.add_command(label="Heavy-weight", command=self.windows.quit)
+        menu1.add_command(label="Hammerhead", command=self.cells.draw_hammerhead)
         menubar.add_cascade(label="Spaceships", menu=menu1)
 
         menu2 = Menu(menubar, tearoff=0)
-        menu2.add_command(label="Bee hive", command=self.cells.draw_bee_hive)
-        menu2.add_command(label="Block", command=self.cells.draw_block)
-        menu2.add_command(label="Boat", command=self.cells.draw_boat)
-        menu2.add_command(label="Loaf", command=self.cells.draw_loaf)
-        menu2.add_command(label="Tube", command=self.cells.draw_tube)
+        menu2.add_command(label="Bee hive", command=self.cells.draw_still_life_bee_hive)
+        menu2.add_command(label="Block", command=self.cells.draw_still_life_block)
+        menu2.add_command(label="Boat", command=self.cells.draw_still_life_boat)
+        menu2.add_command(label="Loaf", command=self.cells.draw_still_life_loaf)
+        menu2.add_command(label="Tube", command=self.cells.draw_still_life_tube)
         menubar.add_cascade(label="Still Lifes", menu=menu2)
 
         menu3 = Menu(menubar, tearoff=0)
         menu3.add_command(label="Blinker", command=self.cells.draw_blinker)
-        menu3.add_command(label="Beacon", command=self.cells.draw_beacon)
-        menu3.add_command(label="Penta Decathlon", command=self.cells.draw_penta_decathlon)
-        menu3.add_command(label="Pulsar", command=self.cells.draw_pulsar)
+        menu3.add_command(label="Beacon", command=self.cells.draw_oscillator_beacon)
+        menu3.add_command(label="Penta Decathlon", command=self.cells.draw_oscillator_penta_decathlon)
+        menu3.add_command(label="Pulsar", command=self.cells.draw_oscillator_pulsar)
+        menu3.add_command(label="Toad", command=self.cells.draw_oscillator_toad)
         menubar.add_cascade(label="Oscillators", menu=menu3)
 
         menu4 = Menu(menubar, tearoff=0)
-        menu4.add_command(label="Benjamin Raynal", command=self.cells.draw_giga_teub)
-        menu4.add_command(label="Gosper glider gun", command=self.cells.draw_spaceship_Glider)
+        menu4.add_command(label="Benjamin Raynal", command=self.cells.draw_special_benjamin)
+        menu4.add_command(label="Gosper glider gun", command=self.cells.draw_special_gosper_glider_gun)
         menubar.add_cascade(label="Special forms", menu=menu4)
 
         self.windows.config(menu=menubar, padx=20, pady=20)
@@ -161,7 +162,7 @@ class Board:
         self.show_cells_alive()
 
     def play_music(self):
-        print(self.music.get())
+        # print(self.music.get())
         if self.music.get() == 1:
             # 1 (ON)
             # loop
