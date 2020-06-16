@@ -50,7 +50,6 @@ class Board:
         self.addTimer()
         self.addButtons()
 
-        # self.cells.draw_spaceship_Glider()
         self.cells.generate_random_cells_alive(self.numberOfCellGenerate)
 
         self.timer()
@@ -67,6 +66,10 @@ class Board:
         menu1.add_separator()
         menu1.add_command(label="Heavy-weight", command=self.windows.quit)
         menubar.add_cascade(label="Spaceships", menu=menu1)
+
+        menu4 = Menu(menubar, tearoff=0)
+        menu4.add_command(label="Gosper glider gun", command=self.cells.draw_spaceship_Glider)
+        menubar.add_cascade(label="Special forms", menu=menu4)
 
         self.windows.config(menu=menubar, padx=20, pady=20)
 
