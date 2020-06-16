@@ -5,15 +5,37 @@ import os
 import pygame
 
 from models.Cells import Cells
+from models.File import File
 
 
 class Board:
-    # Configurations
-    width = 800
-    height = 600
-    cellSize = 10
-    numberOfCellGenerate = 750
-    speed = 500
+    f = File()
+
+    # get Configurations var
+    if (f.getProp("width") is not None) and (400 < int(f.getProp("width")) < 1000):
+        width = int(f.getProp("width"))
+    else:
+        width = 800
+
+    if (f.getProp("height") is not None) and (400 < int(f.getProp("height")) < 1000):
+        height = int(f.getProp("height"))
+    else:
+        height = 600
+
+    if (f.getProp("cellSize") is not None) and (5 < int(f.getProp("cellSize")) < 50):
+        cellSize = int(f.getProp("cellSize"))
+    else:
+        cellSize = 10
+
+    if (f.getProp("numberOfCellGenerate") is not None) and (50 < int(f.getProp("numberOfCellGenerate")) < 2000):
+        numberOfCellGenerate = int(f.getProp("numberOfCellGenerate"))
+    else:
+        numberOfCellGenerate = 750
+
+    if (f.getProp("speed") is not None) and (50 < int(f.getProp("speed")) < 1000):
+        speed = int(f.getProp("speed"))
+    else:
+        speed = 500
 
     # Data
     cellsX = int(floor(width / cellSize))
@@ -90,14 +112,12 @@ class Board:
 
         self.windows.config(menu=menubar, padx=20, pady=20)
 
-        btnGenerate = Button(self.windows, text='Generate', height=2, width=12, command=self.cells.generate_random_cells_alive)
+        btnGenerate = Button(self.windows, text='Generate', height=2, width=12,
+                             command=self.cells.generate_random_cells_alive)
         btnGenerate.pack(side=LEFT, padx=5, pady=5)
 
         btnClear = Button(self.windows, text='Clear', height=2, width=12, command=self.cells.kill_cells)
         btnClear.pack(side=LEFT, padx=5, pady=5)
-
-        btnConfiguration = Button(self.windows, text='Configuration', height=2, width=12, command=self.windows.destroy)
-        btnConfiguration.pack(side=LEFT, padx=5, pady=5)
 
         Checkbutton(self.windows, text="Music", variable=self.music, command=self.play_music).pack(side=LEFT, padx=5,
                                                                                                    pady=5)
