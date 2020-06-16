@@ -44,11 +44,13 @@ class Board:
     counter = 0
 
     def generateBoard(self):
+
         self.canvas.pack(padx=5, pady=5)
 
         self.addTimer()
         self.addButtons()
 
+        # self.cells.draw_spaceship_Glider()
         self.cells.generate_random_cells_alive(self.numberOfCellGenerate)
 
         self.timer()
@@ -57,12 +59,28 @@ class Board:
         self.windows.mainloop()
 
     def addButtons(self):
+        menubar = Menu(self.windows)
+
+        menu1 = Menu(menubar, tearoff=0)
+        menu1.add_command(label="Glider", command=self.cells.draw_spaceship_Glider)
+        menu1.add_command(label="Light-weight", command=self.cells.draw_spaceship_Light_weight)
+        menu1.add_separator()
+        menu1.add_command(label="Heavy-weight", command=self.windows.quit)
+        menubar.add_cascade(label="Spaceships", menu=menu1)
+
+        self.windows.config(menu=menubar, padx=20, pady=20)
+
+        btnGenerate = Button(self.windows, text='Generate', height=2, width=12, command=self.cells.generate_random_cells_alive)
+        btnGenerate.pack(side=LEFT, padx=5, pady=5)
+
+        btnClear = Button(self.windows, text='Clear', height=2, width=12, command=self.cells.kill_cells)
+        btnClear.pack(side=LEFT, padx=5, pady=5)
+
         btnConfiguration = Button(self.windows, text='Configuration', height=2, width=12, command=self.windows.destroy)
         btnConfiguration.pack(side=LEFT, padx=5, pady=5)
 
         Checkbutton(self.windows, text="Music", variable=self.music, command=self.play_music).pack(side=LEFT, padx=5,
                                                                                                    pady=5)
-
         btnLeave = Button(self.windows, text='Leave', height=2, width=6, command=self.windows.destroy)
         btnLeave.pack(side=RIGHT, padx=5, pady=5)
 

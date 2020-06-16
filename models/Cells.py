@@ -8,8 +8,8 @@ class Cells:
     cell_born = []
 
     def __init__(self, cellsX, cellsY, cellSize):
-        self.cells_x_max = cellsX - 1
-        self.cells_y_max = cellsY - 1
+        self.cells_x_max = cellsX
+        self.cells_y_max = cellsY
 
         self.cells2d = np.empty(shape=(cellsX, cellsY), dtype=object)
 
@@ -23,12 +23,6 @@ class Cells:
         self.cells2d[40][32].alive = True
 
     def generate_random_cells_alive(self, numberCell=400):
-        # for i in range(0, self.cells_x_max):
-        #     for y in range(0, self.cells_y_max):
-        #         chance = random.random()
-        #         # 10% chance
-        #         if chance * 100 < percentage:
-        #             self.cells2d[i][y].alive = True
         count = 0
 
         while count < numberCell:
@@ -53,8 +47,8 @@ class Cells:
         return alive
 
     def get_neighbours(self, x, y):
-        X = self.cells_x_max
-        Y = self.cells_y_max
+        X = self.cells_x_max - 1
+        Y = self.cells_y_max - 1
 
         neighbors = [
             (x2, y2)
@@ -103,6 +97,31 @@ class Cells:
         elif neighbours_alive < 2 or neighbours_alive > 3:
             # self.cells2d[x][y].alive = False
             self.cell_die.append((x, y))
+
+    def draw_spaceship_Glider(self):
+        self.cells2d[20][20].setAlive()
+        self.cells2d[21][20].setAlive()
+        self.cells2d[22][20].setAlive()
+
+        self.cells2d[21][18].setAlive()
+        self.cells2d[22][19].setAlive()
+
+    def draw_spaceship_Light_weight(self):
+        self.cells2d[21][20].setAlive()
+        self.cells2d[22][20].setAlive()
+
+        self.cells2d[20][21].setAlive()
+        self.cells2d[21][21].setAlive()
+        self.cells2d[22][21].setAlive()
+        self.cells2d[23][21].setAlive()
+
+        self.cells2d[20][22].setAlive()
+        self.cells2d[21][22].setAlive()
+        self.cells2d[23][22].setAlive()
+        self.cells2d[24][22].setAlive()
+
+        self.cells2d[22][23].setAlive()
+        self.cells2d[23][23].setAlive()
 
     def print_cells(self):
         for i in range(0, self.cells_x_max):

@@ -13,5 +13,8 @@ class Cell:
         Cell.id += 1
         self.id = Cell.id
 
+    def setAlive(self):
+        self.alive = True
+
     def toString(self):
         return 'Cell n°{} (Cells[r: {}, c: {}], Position (X={}, Y={}),alive = {})'.format(self.id, self.row, self.col, self.x, self.y, self.alive)
