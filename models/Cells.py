@@ -98,7 +98,7 @@ class Cells:
             # self.cells2d[x][y].alive = False
             self.cell_die.append((x, y))
 
-    def draw_spaceship_Glider(self):
+    def draw_spaceship_glider(self):
         self.cells2d[20][20].setAlive()
         self.cells2d[21][20].setAlive()
         self.cells2d[22][20].setAlive()
@@ -106,7 +106,7 @@ class Cells:
         self.cells2d[21][18].setAlive()
         self.cells2d[22][19].setAlive()
 
-    def draw_spaceship_Light_weight(self):
+    def draw_spaceship_light_weight(self):
         self.cells2d[21][20].setAlive()
         self.cells2d[22][20].setAlive()
 
@@ -123,13 +123,13 @@ class Cells:
         self.cells2d[22][23].setAlive()
         self.cells2d[23][23].setAlive()
 
-    def draw_block(self):
+    def draw_still_life_block(self):
         self.cells2d[40][30].setAlive()
         self.cells2d[40][31].setAlive()
         self.cells2d[41][30].setAlive()
         self.cells2d[41][31].setAlive()
 
-    def draw_bee_hive(self):
+    def draw_still_life_bee_hive(self):
         self.cells2d[40][30].setAlive()
         self.cells2d[41][30].setAlive()
         self.cells2d[39][29].setAlive()
@@ -137,14 +137,14 @@ class Cells:
         self.cells2d[40][28].setAlive()
         self.cells2d[41][28].setAlive()
 
-    def draw_boat(self):
+    def draw_still_life_boat(self):
         self.cells2d[40][30].setAlive()
         self.cells2d[41][30].setAlive()
         self.cells2d[40][29].setAlive()
         self.cells2d[42][29].setAlive()
         self.cells2d[41][28].setAlive()
 
-    def draw_loaf(self):
+    def draw_still_life_loaf(self):
         self.cells2d[40][30].setAlive()
         self.cells2d[41][30].setAlive()
         self.cells2d[39][29].setAlive()
@@ -153,7 +153,7 @@ class Cells:
         self.cells2d[42][28].setAlive()
         self.cells2d[41][27].setAlive()
 
-    def draw_tube(self):
+    def draw_still_life_tube(self):
         self.cells2d[40][30].setAlive()
         self.cells2d[39][29].setAlive()
         self.cells2d[41][29].setAlive()
@@ -164,7 +164,7 @@ class Cells:
         self.cells2d[41][30].setAlive()
         self.cells2d[42][30].setAlive()
 
-    def draw_beacon(self):
+    def draw_oscillator_beacon(self):
         self.cells2d[40][30].setAlive()
         self.cells2d[40][31].setAlive()
         self.cells2d[41][30].setAlive()
@@ -174,7 +174,7 @@ class Cells:
         self.cells2d[43][32].setAlive()
         self.cells2d[43][33].setAlive()
 
-    def draw_penta_decathlon(self):
+    def draw_oscillator_penta_decathlon(self):
         self.cells2d[40][30].setAlive()
         self.cells2d[40][31].setAlive()
         self.cells2d[39][32].setAlive()
@@ -188,7 +188,15 @@ class Cells:
         self.cells2d[40][38].setAlive()
         self.cells2d[40][39].setAlive()
 
-    def draw_pulsar(self):
+    def draw_oscillator_toad(self):
+        self.cells2d[38][30].setAlive()
+        self.cells2d[39][30].setAlive()
+        self.cells2d[39][31].setAlive()
+        self.cells2d[38][31].setAlive()
+        self.cells2d[37][30].setAlive()
+        self.cells2d[40][31].setAlive()
+
+    def draw_oscillator_pulsar(self):
         self.cells2d[40][30].setAlive()
         self.cells2d[41][30].setAlive()
         self.cells2d[42][30].setAlive()
@@ -238,7 +246,7 @@ class Cells:
         self.cells2d[50][39].setAlive()
         self.cells2d[50][40].setAlive()
 
-    def draw_giga_teub(self):
+    def draw_special_benjamin(self):
         for i in range(10, 20):
             for j in range(10, 20):
                 self.cells2d[i][j].setAlive()
@@ -249,15 +257,7 @@ class Cells:
             for j in range(20, 37):
                 self.cells2d[i][j].setAlive()
 
-    def draw_oscillator_toad(self):
-        self.cells2d[38][30].setAlive()
-        self.cells2d[39][30].setAlive()
-        self.cells2d[39][31].setAlive()
-        self.cells2d[38][31].setAlive()
-        self.cells2d[37][30].setAlive()
-        self.cells2d[40][31].setAlive()
-
-    def draw_Gosper_glider_gun(self):
+    def draw_special_gosper_glider_gun(self):
         self.cells2d[20][25].setAlive()
         self.cells2d[20][26].setAlive()
         self.cells2d[21][25].setAlive()
@@ -294,6 +294,85 @@ class Cells:
         self.cells2d[54][24].setAlive()
         self.cells2d[55][23].setAlive()
         self.cells2d[55][24].setAlive()
+
+    def draw_hammerhead(self):
+        for i in range(30, 35):
+            self.cells2d[i][30].setAlive()
+            self.cells2d[i][45].setAlive()
+
+        self.cells2d[37][37].setAlive()
+
+        self.cells2d[37][38].setAlive()
+
+        self.cells2d[36][36].setAlive()
+        self.cells2d[38][36].setAlive()
+        self.cells2d[40][36].setAlive()
+        self.cells2d[42][36].setAlive()
+        self.cells2d[36][39].setAlive()
+        self.cells2d[38][39].setAlive()
+        self.cells2d[40][39].setAlive()
+        self.cells2d[42][39].setAlive()
+
+        self.cells2d[35][35].setAlive()
+        self.cells2d[40][35].setAlive()
+        self.cells2d[43][35].setAlive()
+        self.cells2d[35][40].setAlive()
+        self.cells2d[40][40].setAlive()
+        self.cells2d[43][40].setAlive()
+
+        self.cells2d[33][34].setAlive()
+        self.cells2d[34][34].setAlive()
+        self.cells2d[38][34].setAlive()
+        self.cells2d[39][34].setAlive()
+        self.cells2d[41][34].setAlive()
+        self.cells2d[42][34].setAlive()
+        self.cells2d[45][34].setAlive()
+        self.cells2d[46][34].setAlive()
+        self.cells2d[33][41].setAlive()
+        self.cells2d[34][41].setAlive()
+        self.cells2d[38][41].setAlive()
+        self.cells2d[39][41].setAlive()
+        self.cells2d[41][41].setAlive()
+        self.cells2d[42][41].setAlive()
+        self.cells2d[45][41].setAlive()
+        self.cells2d[46][41].setAlive()
+
+        self.cells2d[31][33].setAlive()
+        self.cells2d[41][33].setAlive()
+        self.cells2d[42][33].setAlive()
+        self.cells2d[44][33].setAlive()
+        self.cells2d[45][33].setAlive()
+        self.cells2d[46][33].setAlive()
+        self.cells2d[47][33].setAlive()
+        self.cells2d[31][42].setAlive()
+        self.cells2d[41][42].setAlive()
+        self.cells2d[42][42].setAlive()
+        self.cells2d[44][42].setAlive()
+        self.cells2d[45][42].setAlive()
+        self.cells2d[46][42].setAlive()
+        self.cells2d[47][42].setAlive()
+
+        self.cells2d[30][32].setAlive()
+        self.cells2d[42][32].setAlive()
+        self.cells2d[43][32].setAlive()
+        self.cells2d[45][32].setAlive()
+        self.cells2d[46][32].setAlive()
+        self.cells2d[47][32].setAlive()
+        self.cells2d[30][43].setAlive()
+        self.cells2d[42][43].setAlive()
+        self.cells2d[43][43].setAlive()
+        self.cells2d[45][43].setAlive()
+        self.cells2d[46][43].setAlive()
+        self.cells2d[47][43].setAlive()
+
+        self.cells2d[30][31].setAlive()
+        self.cells2d[35][31].setAlive()
+        self.cells2d[43][31].setAlive()
+        self.cells2d[44][31].setAlive()
+        self.cells2d[30][44].setAlive()
+        self.cells2d[35][44].setAlive()
+        self.cells2d[43][44].setAlive()
+        self.cells2d[44][44].setAlive()
 
     def print_cells(self):
         for i in range(0, self.cells_x_max):
