@@ -67,7 +67,23 @@ class Board:
         menu1.add_command(label="Heavy-weight", command=self.windows.quit)
         menubar.add_cascade(label="Spaceships", menu=menu1)
 
+        menu2 = Menu(menubar, tearoff=0)
+        menu2.add_command(label="Bee hive", command=self.cells.draw_bee_hive)
+        menu2.add_command(label="Block", command=self.cells.draw_block)
+        menu2.add_command(label="Boat", command=self.cells.draw_boat)
+        menu2.add_command(label="Loaf", command=self.cells.draw_loaf)
+        menu2.add_command(label="Tube", command=self.cells.draw_tube)
+        menubar.add_cascade(label="Still Lifes", menu=menu2)
+
+        menu3 = Menu(menubar, tearoff=0)
+        menu3.add_command(label="Blinker", command=self.cells.draw_blinker)
+        menu3.add_command(label="Beacon", command=self.cells.draw_beacon)
+        menu3.add_command(label="Penta Decathlon", command=self.cells.draw_penta_decathlon)
+        menu3.add_command(label="Pulsar", command=self.cells.draw_pulsar)
+        menubar.add_cascade(label="Oscillators", menu=menu3)
+
         menu4 = Menu(menubar, tearoff=0)
+        menu4.add_command(label="Benjamin Raynal", command=self.cells.draw_giga_teub)
         menu4.add_command(label="Gosper glider gun", command=self.cells.draw_spaceship_Glider)
         menubar.add_cascade(label="Special forms", menu=menu4)
 
@@ -151,5 +167,5 @@ class Board:
             # loop
             pygame.mixer.music.play(-1, 3)
         else:
-            # 0 (OFF)
+            # # 0 (OFF)
             pygame.mixer.music.stop()

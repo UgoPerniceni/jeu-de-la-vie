@@ -123,6 +123,132 @@ class Cells:
         self.cells2d[22][23].setAlive()
         self.cells2d[23][23].setAlive()
 
+    def draw_block(self):
+        self.cells2d[40][30].setAlive()
+        self.cells2d[40][31].setAlive()
+        self.cells2d[41][30].setAlive()
+        self.cells2d[41][31].setAlive()
+
+    def draw_bee_hive(self):
+        self.cells2d[40][30].setAlive()
+        self.cells2d[41][30].setAlive()
+        self.cells2d[39][29].setAlive()
+        self.cells2d[42][29].setAlive()
+        self.cells2d[40][28].setAlive()
+        self.cells2d[41][28].setAlive()
+
+    def draw_boat(self):
+        self.cells2d[40][30].setAlive()
+        self.cells2d[41][30].setAlive()
+        self.cells2d[40][29].setAlive()
+        self.cells2d[42][29].setAlive()
+        self.cells2d[41][28].setAlive()
+
+    def draw_loaf(self):
+        self.cells2d[40][30].setAlive()
+        self.cells2d[41][30].setAlive()
+        self.cells2d[39][29].setAlive()
+        self.cells2d[42][29].setAlive()
+        self.cells2d[40][28].setAlive()
+        self.cells2d[42][28].setAlive()
+        self.cells2d[41][27].setAlive()
+
+    def draw_tube(self):
+        self.cells2d[40][30].setAlive()
+        self.cells2d[39][29].setAlive()
+        self.cells2d[41][29].setAlive()
+        self.cells2d[40][28].setAlive()
+
+    def draw_blinker(self):
+        self.cells2d[40][30].setAlive()
+        self.cells2d[41][30].setAlive()
+        self.cells2d[42][30].setAlive()
+
+    def draw_beacon(self):
+        self.cells2d[40][30].setAlive()
+        self.cells2d[40][31].setAlive()
+        self.cells2d[41][30].setAlive()
+        self.cells2d[41][31].setAlive()
+        self.cells2d[42][32].setAlive()
+        self.cells2d[42][33].setAlive()
+        self.cells2d[43][32].setAlive()
+        self.cells2d[43][33].setAlive()
+
+    def draw_penta_decathlon(self):
+        self.cells2d[40][30].setAlive()
+        self.cells2d[40][31].setAlive()
+        self.cells2d[39][32].setAlive()
+        self.cells2d[41][32].setAlive()
+        self.cells2d[40][33].setAlive()
+        self.cells2d[40][34].setAlive()
+        self.cells2d[40][35].setAlive()
+        self.cells2d[40][36].setAlive()
+        self.cells2d[39][37].setAlive()
+        self.cells2d[41][37].setAlive()
+        self.cells2d[40][38].setAlive()
+        self.cells2d[40][39].setAlive()
+
+    def draw_pulsar(self):
+        self.cells2d[40][30].setAlive()
+        self.cells2d[41][30].setAlive()
+        self.cells2d[42][30].setAlive()
+        self.cells2d[46][30].setAlive()
+        self.cells2d[47][30].setAlive()
+        self.cells2d[48][30].setAlive()
+        self.cells2d[40][35].setAlive()
+        self.cells2d[41][35].setAlive()
+        self.cells2d[42][35].setAlive()
+        self.cells2d[46][35].setAlive()
+        self.cells2d[47][35].setAlive()
+        self.cells2d[48][35].setAlive()
+        self.cells2d[40][37].setAlive()
+        self.cells2d[41][37].setAlive()
+        self.cells2d[42][37].setAlive()
+        self.cells2d[46][37].setAlive()
+        self.cells2d[47][37].setAlive()
+        self.cells2d[48][37].setAlive()
+        self.cells2d[40][42].setAlive()
+        self.cells2d[41][42].setAlive()
+        self.cells2d[42][42].setAlive()
+        self.cells2d[46][42].setAlive()
+        self.cells2d[47][42].setAlive()
+        self.cells2d[48][42].setAlive()
+        self.cells2d[38][32].setAlive()
+        self.cells2d[38][33].setAlive()
+        self.cells2d[38][34].setAlive()
+        self.cells2d[43][32].setAlive()
+        self.cells2d[43][33].setAlive()
+        self.cells2d[43][34].setAlive()
+        self.cells2d[45][32].setAlive()
+        self.cells2d[45][33].setAlive()
+        self.cells2d[45][34].setAlive()
+        self.cells2d[50][32].setAlive()
+        self.cells2d[50][33].setAlive()
+        self.cells2d[50][34].setAlive()
+        self.cells2d[38][38].setAlive()
+        self.cells2d[38][39].setAlive()
+        self.cells2d[38][40].setAlive()
+        self.cells2d[43][38].setAlive()
+        self.cells2d[43][39].setAlive()
+        self.cells2d[43][40].setAlive()
+        self.cells2d[45][38].setAlive()
+        self.cells2d[45][39].setAlive()
+        self.cells2d[45][40].setAlive()
+        self.cells2d[50][38].setAlive()
+        self.cells2d[50][39].setAlive()
+        self.cells2d[50][40].setAlive()
+
+    def draw_giga_teub(self):
+        for i in range(10, 20):
+            for j in range(10, 20):
+                self.cells2d[i][j].setAlive()
+        for i in range(35, 45):
+            for j in range(10, 20):
+                self.cells2d[i][j].setAlive()
+        for i in range(20, 35):
+            for j in range(20, 37):
+                self.cells2d[i][j].setAlive()
+
     def draw_oscillator_toad(self):
         self.cells2d[38][30].setAlive()
         self.cells2d[39][30].setAlive()
