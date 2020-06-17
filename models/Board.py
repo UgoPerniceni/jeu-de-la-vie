@@ -5,72 +5,53 @@ import os
 import pygame
 
 from models.Cells import Cells
-from models.File import File
+from models.FileInfos import FileInfos
 
 
 class Board:
-    f = File()
+    def __init__(self):
+        conf = FileInfos()
+        # Get .conf variables
+        self.width = conf.width
+        self.height = conf.height
+        self.cellSize = conf.cellSize
+        self.numberOfCellGenerate = conf.numberOfCellGenerate
+        self.speed = conf.speed
 
-    # get Configurations var
-    if (f.getProp("width") is not None) and (400 < int(f.getProp("width")) < 1000):
-        width = int(f.getProp("width"))
-    else:
-        width = 800
+        # Data
+        self.cellsX = int(floor(self.width / self.cellSize))
+        self.cellsY = int(floor(self.height / self.cellSize))
 
-    if (f.getProp("height") is not None) and (400 < int(f.getProp("height")) < 1000):
-        height = int(f.getProp("height"))
-    else:
-        height = 600
+        # Board's array
+        self.cells = Cells(self.cellsX, self.cellsY, self.cellSize)
 
-    if (f.getProp("cellSize") is not None) and (5 < int(f.getProp("cellSize")) < 50):
-        cellSize = int(f.getProp("cellSize"))
-    else:
-        cellSize = 10
+        # get project's root
+        ROOT_DIR = (os.path.dirname(os.path.abspath(__file__)))[0:-7]
 
-    if (f.getProp("numberOfCellGenerate") is not None) and (50 < int(f.getProp("numberOfCellGenerate")) < 2000):
-        numberOfCellGenerate = int(f.getProp("numberOfCellGenerate"))
-    else:
-        numberOfCellGenerate = 750
+        # Create main windows
+        self.windows = Tk()
+        self.windows.title('Conway\'s Game of Life')
+        self.windows.resizable(False, False)
 
-    if (f.getProp("speed") is not None) and (50 < int(f.getProp("speed")) < 1000):
-        speed = int(f.getProp("speed"))
-    else:
-        speed = 500
+        # Pygame music
+        pygame.mixer.init()
+        pygame.mixer.music.load(str(ROOT_DIR) + "/assets/music.mp3")
+        pygame.mixer.music.set_volume(0.5)
 
-    # Data
-    cellsX = int(floor(width / cellSize))
-    cellsY = int(floor(height / cellSize))
+        self.music = IntVar()
+        self.music.set(0)
 
-    # Board's array
-    cells = Cells(cellsX, cellsY, cellSize)
+        # Canvas
+        self.canvas = Canvas(self.windows, width=self.width, height=self.height, background='#bcbcbc')
 
-    # Create main windows
-    windows = Tk()
-    windows.title('Conway\'s Game of Life')
-    windows.resizable(False, False)
+        self.time = StringVar()
+        self.counter = 0
 
-    # get project's root
-    ROOT_DIR = (os.path.dirname(os.path.abspath(__file__)))[0:-7]
-    # pygame
-    pygame.mixer.init()
-    pygame.mixer.music.load(str(ROOT_DIR) + "/assets/music.mp3")
-    pygame.mixer.music.set_volume(0.5)
-
-    music = IntVar()
-    music.set(0)
-
-    # Canvas
-    canvas = Canvas(windows, width=width, height=height, background='#bcbcbc')
-
-    time = StringVar()
-    counter = 0
-
-    def generateBoard(self):
-
+    def generate_board(self):
         self.canvas.pack(padx=5, pady=5)
 
-        self.addTimer()
-        self.addButtons()
+        self.add_timer()
+        self.add_buttons()
 
         self.cells.generate_random_cells_alive(self.numberOfCellGenerate)
 
@@ -79,14 +60,13 @@ class Board:
 
         self.windows.mainloop()
 
-    def addButtons(self):
+    def add_buttons(self):
         menubar = Menu(self.windows)
 
         menu1 = Menu(menubar, tearoff=0)
         menu1.add_command(label="Glider", command=self.cells.draw_spaceship_glider)
         menu1.add_command(label="Light-weight", command=self.cells.draw_spaceship_light_weight)
-        menu1.add_separator()
-        menu1.add_command(label="Hammerhead", command=self.cells.draw_hammerhead)
+        menu1.add_command(label="Hammerhead", command=self.cells.draw_spaceship_hammerhead)
         menubar.add_cascade(label="Spaceships", menu=menu1)
 
         menu2 = Menu(menubar, tearoff=0)
@@ -98,7 +78,7 @@ class Board:
         menubar.add_cascade(label="Still Lifes", menu=menu2)
 
         menu3 = Menu(menubar, tearoff=0)
-        menu3.add_command(label="Blinker", command=self.cells.draw_blinker)
+        menu3.add_command(label="Blinker", command=self.cells.draw_oscillator_blinker)
         menu3.add_command(label="Beacon", command=self.cells.draw_oscillator_beacon)
         menu3.add_command(label="Penta Decathlon", command=self.cells.draw_oscillator_penta_decathlon)
         menu3.add_command(label="Pulsar", command=self.cells.draw_oscillator_pulsar)
@@ -126,19 +106,18 @@ class Board:
 
     # Timer
     def timer(self):
-        self.updateTimer()
-
+        self.update_timer()
         self.windows.after(1000, self.timer)
 
-    def addTimer(self):
+    def add_timer(self):
         Label(self.windows, textvariable=self.time).pack()
 
-    def updateTimer(self):
+    def update_timer(self):
         self.counter = self.counter + 1
         self.time.set(
-            "{}\nCells alive: {}".format(self.formatTime(), self.cells.count_cells_alive()))
+            "{}\nCells alive: {}".format(self.format_time(), self.cells.count_cells_alive()))
 
-    def formatTime(self):
+    def format_time(self):
         h = floor(self.counter / 3600)
         m = floor((self.counter / 60))
         s = floor((self.counter % 60))
@@ -150,7 +129,7 @@ class Board:
         return '{}:{}:{}'.format(h, m, s)
 
     def cycle(self):
-        self.reDrawCanvas()
+        self.draw_canvas()
         self.windows.after(self.speed, self.cycle)
 
     def grid(self):
@@ -173,20 +152,18 @@ class Board:
                     self.canvas.create_rectangle(cell.x, cell.y, cell.x + self.cellSize, cell.y + self.cellSize,
                                                  fill='black')
 
-    def reDrawCanvas(self):
+    def draw_canvas(self):
         self.canvas.delete(ALL)
         self.grid()
 
         self.cells.update_cell_state()
-
         self.show_cells_alive()
 
     def play_music(self):
         # print(self.music.get())
         if self.music.get() == 1:
-            # 1 (ON)
-            # loop
+            # 1 (ON) loop
             pygame.mixer.music.play(-1, 3)
         else:
-            # # 0 (OFF)
+            # 0 (OFF)
             pygame.mixer.music.stop()
