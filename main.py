@@ -1,3 +1,3 @@
 from models.Board import Board
 
-Board().generateBoard()
+Board().generate_board()

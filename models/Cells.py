@@ -86,18 +86,19 @@ class Cells:
 
     def rule_cell(self, x, y):
         neighbours_alive = self.get_neighbours_alive(x, y)
-        # Rule 1 -> Si une cellule a exactement trois voisines vivantes, elle est vivante à l’étape suivante.
         if neighbours_alive == 3:
-            # self.cells2d[x][y].alive = True
             self.cell_born.append((x, y))
-        # Rule 2 -> Si une cellule a exactement deux voisines vivantes, elle reste dans son état actuel à l’étape suivante.
         # elif self.get_neighbours_alive(x, y) == 2:
         #     self.cells2d[x][y].alive = self.cells2d[x][y].alive
-        # Rule 3 -> Si une cellule a strictement moins de deux ou strictement plus de trois voisines vivantes, elle est morte à l’étape suivante.
         elif neighbours_alive < 2 or neighbours_alive > 3:
-            # self.cells2d[x][y].alive = False
             self.cell_die.append((x, y))
 
+    def print_cells(self):
+        for i in range(0, self.cells_x_max):
+            for y in range(0, self.cells_y_max):
+                print(self.cells2d[i][y].toString())
+
+    # Draws
     def draw_spaceship_glider(self):
         self.cells2d[20][20].set_alive()
         self.cells2d[21][20].set_alive()
@@ -123,179 +124,7 @@ class Cells:
         self.cells2d[22][23].set_alive()
         self.cells2d[23][23].set_alive()
 
-    def draw_still_life_block(self):
-        self.cells2d[40][30].set_alive()
-        self.cells2d[40][31].set_alive()
-        self.cells2d[41][30].set_alive()
-        self.cells2d[41][31].set_alive()
-
-    def draw_still_life_bee_hive(self):
-        self.cells2d[40][30].set_alive()
-        self.cells2d[41][30].set_alive()
-        self.cells2d[39][29].set_alive()
-        self.cells2d[42][29].set_alive()
-        self.cells2d[40][28].set_alive()
-        self.cells2d[41][28].set_alive()
-
-    def draw_still_life_boat(self):
-        self.cells2d[40][30].set_alive()
-        self.cells2d[41][30].set_alive()
-        self.cells2d[40][29].set_alive()
-        self.cells2d[42][29].set_alive()
-        self.cells2d[41][28].set_alive()
-
-    def draw_still_life_loaf(self):
-        self.cells2d[42][29].set_alive()
-        self.cells2d[40][28].set_alive()
-        self.cells2d[42][28].set_alive()
-        self.cells2d[41][27].set_alive()
-        self.cells2d[40][30].set_alive()
-        self.cells2d[41][30].set_alive()
-        self.cells2d[39][29].set_alive()
-
-    def draw_still_life_tube(self):
-        self.cells2d[40][30].set_alive()
-        self.cells2d[39][29].set_alive()
-        self.cells2d[41][29].set_alive()
-        self.cells2d[40][28].set_alive()
-
-    def draw_blinker(self):
-        self.cells2d[40][30].set_alive()
-        self.cells2d[41][30].set_alive()
-        self.cells2d[42][30].set_alive()
-
-    def draw_oscillator_beacon(self):
-        self.cells2d[40][30].set_alive()
-        self.cells2d[40][31].set_alive()
-        self.cells2d[41][30].set_alive()
-        self.cells2d[41][31].set_alive()
-        self.cells2d[42][32].set_alive()
-        self.cells2d[42][33].set_alive()
-        self.cells2d[43][32].set_alive()
-        self.cells2d[43][33].set_alive()
-
-    def draw_oscillator_penta_decathlon(self):
-        self.cells2d[40][30].set_alive()
-        self.cells2d[40][31].set_alive()
-        self.cells2d[39][32].set_alive()
-        self.cells2d[41][32].set_alive()
-        self.cells2d[40][33].set_alive()
-        self.cells2d[40][34].set_alive()
-        self.cells2d[40][35].set_alive()
-        self.cells2d[40][36].set_alive()
-        self.cells2d[39][37].set_alive()
-        self.cells2d[41][37].set_alive()
-        self.cells2d[40][38].set_alive()
-        self.cells2d[40][39].set_alive()
-
-    def draw_oscillator_toad(self):
-        self.cells2d[38][30].set_alive()
-        self.cells2d[39][30].set_alive()
-        self.cells2d[39][31].set_alive()
-        self.cells2d[38][31].set_alive()
-        self.cells2d[37][30].set_alive()
-        self.cells2d[40][31].set_alive()
-
-    def draw_oscillator_pulsar(self):
-        self.cells2d[40][30].set_alive()
-        self.cells2d[41][30].set_alive()
-        self.cells2d[42][30].set_alive()
-        self.cells2d[46][30].set_alive()
-        self.cells2d[47][30].set_alive()
-        self.cells2d[48][30].set_alive()
-        self.cells2d[40][35].set_alive()
-        self.cells2d[41][35].set_alive()
-        self.cells2d[42][35].set_alive()
-        self.cells2d[46][35].set_alive()
-        self.cells2d[47][35].set_alive()
-        self.cells2d[48][35].set_alive()
-        self.cells2d[40][37].set_alive()
-        self.cells2d[41][37].set_alive()
-        self.cells2d[42][37].set_alive()
-        self.cells2d[46][37].set_alive()
-        self.cells2d[47][37].set_alive()
-        self.cells2d[48][37].set_alive()
-        self.cells2d[40][42].set_alive()
-        self.cells2d[41][42].set_alive()
-        self.cells2d[42][42].set_alive()
-        self.cells2d[46][42].set_alive()
-        self.cells2d[47][42].set_alive()
-        self.cells2d[48][42].set_alive()
-        self.cells2d[38][32].set_alive()
-        self.cells2d[38][33].set_alive()
-        self.cells2d[38][34].set_alive()
-        self.cells2d[43][32].set_alive()
-        self.cells2d[43][33].set_alive()
-        self.cells2d[43][34].set_alive()
-        self.cells2d[45][32].set_alive()
-        self.cells2d[45][33].set_alive()
-        self.cells2d[45][34].set_alive()
-        self.cells2d[50][32].set_alive()
-        self.cells2d[50][33].set_alive()
-        self.cells2d[50][34].set_alive()
-        self.cells2d[38][38].set_alive()
-        self.cells2d[38][39].set_alive()
-        self.cells2d[38][40].set_alive()
-        self.cells2d[43][38].set_alive()
-        self.cells2d[43][39].set_alive()
-        self.cells2d[43][40].set_alive()
-        self.cells2d[45][38].set_alive()
-        self.cells2d[45][39].set_alive()
-        self.cells2d[45][40].set_alive()
-        self.cells2d[50][38].set_alive()
-        self.cells2d[50][39].set_alive()
-        self.cells2d[50][40].set_alive()
-
-    def draw_special_benjamin(self):
-        for i in range(10, 20):
-            for j in range(10, 20):
-                self.cells2d[i][j].set_alive()
-        for i in range(35, 45):
-            for j in range(10, 20):
-                self.cells2d[i][j].set_alive()
-        for i in range(20, 35):
-            for j in range(20, 37):
-                self.cells2d[i][j].set_alive()
-
-    def draw_special_gosper_glider_gun(self):
-        self.cells2d[20][25].set_alive()
-        self.cells2d[20][26].set_alive()
-        self.cells2d[21][25].set_alive()
-        self.cells2d[21][26].set_alive()
-        self.cells2d[30][25].set_alive()
-        self.cells2d[30][26].set_alive()
-        self.cells2d[30][27].set_alive()
-        self.cells2d[31][24].set_alive()
-        self.cells2d[31][28].set_alive()
-        self.cells2d[32][23].set_alive()
-        self.cells2d[32][29].set_alive()
-        self.cells2d[33][23].set_alive()
-        self.cells2d[33][29].set_alive()
-        self.cells2d[34][26].set_alive()
-        self.cells2d[35][24].set_alive()
-        self.cells2d[35][28].set_alive()
-        self.cells2d[36][25].set_alive()
-        self.cells2d[36][26].set_alive()
-        self.cells2d[36][27].set_alive()
-        self.cells2d[37][26].set_alive()
-        self.cells2d[40][23].set_alive()
-        self.cells2d[40][24].set_alive()
-        self.cells2d[40][25].set_alive()
-        self.cells2d[41][23].set_alive()
-        self.cells2d[41][24].set_alive()
-        self.cells2d[41][25].set_alive()
-        self.cells2d[42][22].set_alive()
-        self.cells2d[42][26].set_alive()
-        self.cells2d[44][21].set_alive()
-        self.cells2d[44][22].set_alive()
-        self.cells2d[44][26].set_alive()
-        self.cells2d[44][27].set_alive()
-        self.cells2d[54][23].set_alive()
-        self.cells2d[54][24].set_alive()
-        self.cells2d[55][23].set_alive()
-        self.cells2d[55][24].set_alive()
-
-    def draw_hammerhead(self):
+    def draw_spaceship_hammerhead(self):
         for i in range(30, 35):
             self.cells2d[i][30].set_alive()
             self.cells2d[i][45].set_alive()
@@ -374,7 +203,174 @@ class Cells:
         self.cells2d[43][44].set_alive()
         self.cells2d[44][44].set_alive()
 
-    def print_cells(self):
-        for i in range(0, self.cells_x_max):
-            for y in range(0, self.cells_y_max):
-                print(self.cells2d[i][y].toString())
+    def draw_still_life_bee_hive(self):
+        self.cells2d[40][30].set_alive()
+        self.cells2d[41][30].set_alive()
+        self.cells2d[39][29].set_alive()
+        self.cells2d[42][29].set_alive()
+        self.cells2d[40][28].set_alive()
+        self.cells2d[41][28].set_alive()
+
+    def draw_still_life_block(self):
+        self.cells2d[40][30].set_alive()
+        self.cells2d[40][31].set_alive()
+        self.cells2d[41][30].set_alive()
+        self.cells2d[41][31].set_alive()
+
+    def draw_still_life_boat(self):
+        self.cells2d[40][30].set_alive()
+        self.cells2d[41][30].set_alive()
+        self.cells2d[40][29].set_alive()
+        self.cells2d[42][29].set_alive()
+        self.cells2d[41][28].set_alive()
+
+    def draw_still_life_loaf(self):
+        self.cells2d[42][29].set_alive()
+        self.cells2d[40][28].set_alive()
+        self.cells2d[42][28].set_alive()
+        self.cells2d[41][27].set_alive()
+        self.cells2d[40][30].set_alive()
+        self.cells2d[41][30].set_alive()
+        self.cells2d[39][29].set_alive()
+
+    def draw_still_life_tube(self):
+        self.cells2d[40][30].set_alive()
+        self.cells2d[39][29].set_alive()
+        self.cells2d[41][29].set_alive()
+        self.cells2d[40][28].set_alive()
+
+    def draw_oscillator_blinker(self):
+        self.cells2d[40][30].set_alive()
+        self.cells2d[41][30].set_alive()
+        self.cells2d[42][30].set_alive()
+
+    def draw_oscillator_beacon(self):
+        self.cells2d[40][30].set_alive()
+        self.cells2d[40][31].set_alive()
+        self.cells2d[41][30].set_alive()
+        self.cells2d[41][31].set_alive()
+        self.cells2d[42][32].set_alive()
+        self.cells2d[42][33].set_alive()
+        self.cells2d[43][32].set_alive()
+        self.cells2d[43][33].set_alive()
+
+    def draw_oscillator_penta_decathlon(self):
+        self.cells2d[40][30].set_alive()
+        self.cells2d[40][31].set_alive()
+        self.cells2d[39][32].set_alive()
+        self.cells2d[41][32].set_alive()
+        self.cells2d[40][33].set_alive()
+        self.cells2d[40][34].set_alive()
+        self.cells2d[40][35].set_alive()
+        self.cells2d[40][36].set_alive()
+        self.cells2d[39][37].set_alive()
+        self.cells2d[41][37].set_alive()
+        self.cells2d[40][38].set_alive()
+        self.cells2d[40][39].set_alive()
+
+    def draw_oscillator_pulsar(self):
+        self.cells2d[40][30].set_alive()
+        self.cells2d[41][30].set_alive()
+        self.cells2d[42][30].set_alive()
+        self.cells2d[46][30].set_alive()
+        self.cells2d[47][30].set_alive()
+        self.cells2d[48][30].set_alive()
+        self.cells2d[40][35].set_alive()
+        self.cells2d[41][35].set_alive()
+        self.cells2d[42][35].set_alive()
+        self.cells2d[46][35].set_alive()
+        self.cells2d[47][35].set_alive()
+        self.cells2d[48][35].set_alive()
+        self.cells2d[40][37].set_alive()
+        self.cells2d[41][37].set_alive()
+        self.cells2d[42][37].set_alive()
+        self.cells2d[46][37].set_alive()
+        self.cells2d[47][37].set_alive()
+        self.cells2d[48][37].set_alive()
+        self.cells2d[40][42].set_alive()
+        self.cells2d[41][42].set_alive()
+        self.cells2d[42][42].set_alive()
+        self.cells2d[46][42].set_alive()
+        self.cells2d[47][42].set_alive()
+        self.cells2d[48][42].set_alive()
+        self.cells2d[38][32].set_alive()
+        self.cells2d[38][33].set_alive()
+        self.cells2d[38][34].set_alive()
+        self.cells2d[43][32].set_alive()
+        self.cells2d[43][33].set_alive()
+        self.cells2d[43][34].set_alive()
+        self.cells2d[45][32].set_alive()
+        self.cells2d[45][33].set_alive()
+        self.cells2d[45][34].set_alive()
+        self.cells2d[50][32].set_alive()
+        self.cells2d[50][33].set_alive()
+        self.cells2d[50][34].set_alive()
+        self.cells2d[38][38].set_alive()
+        self.cells2d[38][39].set_alive()
+        self.cells2d[38][40].set_alive()
+        self.cells2d[43][38].set_alive()
+        self.cells2d[43][39].set_alive()
+        self.cells2d[43][40].set_alive()
+        self.cells2d[45][38].set_alive()
+        self.cells2d[45][39].set_alive()
+        self.cells2d[45][40].set_alive()
+        self.cells2d[50][38].set_alive()
+        self.cells2d[50][39].set_alive()
+        self.cells2d[50][40].set_alive()
+
+    def draw_oscillator_toad(self):
+        self.cells2d[38][30].set_alive()
+        self.cells2d[39][30].set_alive()
+        self.cells2d[39][31].set_alive()
+        self.cells2d[38][31].set_alive()
+        self.cells2d[37][30].set_alive()
+        self.cells2d[40][31].set_alive()
+
+    def draw_special_gosper_glider_gun(self):
+        self.cells2d[20][25].set_alive()
+        self.cells2d[20][26].set_alive()
+        self.cells2d[21][25].set_alive()
+        self.cells2d[21][26].set_alive()
+        self.cells2d[30][25].set_alive()
+        self.cells2d[30][26].set_alive()
+        self.cells2d[30][27].set_alive()
+        self.cells2d[31][24].set_alive()
+        self.cells2d[31][28].set_alive()
+        self.cells2d[32][23].set_alive()
+        self.cells2d[32][29].set_alive()
+        self.cells2d[33][23].set_alive()
+        self.cells2d[33][29].set_alive()
+        self.cells2d[34][26].set_alive()
+        self.cells2d[35][24].set_alive()
+        self.cells2d[35][28].set_alive()
+        self.cells2d[36][25].set_alive()
+        self.cells2d[36][26].set_alive()
+        self.cells2d[36][27].set_alive()
+        self.cells2d[37][26].set_alive()
+        self.cells2d[40][23].set_alive()
+        self.cells2d[40][24].set_alive()
+        self.cells2d[40][25].set_alive()
+        self.cells2d[41][23].set_alive()
+        self.cells2d[41][24].set_alive()
+        self.cells2d[41][25].set_alive()
+        self.cells2d[42][22].set_alive()
+        self.cells2d[42][26].set_alive()
+        self.cells2d[44][21].set_alive()
+        self.cells2d[44][22].set_alive()
+        self.cells2d[44][26].set_alive()
+        self.cells2d[44][27].set_alive()
+        self.cells2d[54][23].set_alive()
+        self.cells2d[54][24].set_alive()
+        self.cells2d[55][23].set_alive()
+        self.cells2d[55][24].set_alive()
+
+    def draw_special_benjamin(self):
+        for i in range(10, 20):
+            for j in range(10, 20):
+                self.cells2d[i][j].set_alive()
+        for i in range(35, 45):
+            for j in range(10, 20):
+                self.cells2d[i][j].set_alive()
+        for i in range(20, 35):
+            for j in range(20, 37):
+                self.cells2d[i][j].set_alive()
