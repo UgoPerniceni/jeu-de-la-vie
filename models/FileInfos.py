@@ -9,15 +9,6 @@ class FileInfos:
     def __init__(self, path=ROOT_DIR):
         self.path = path
 
-        self.width = self.get_property("width")
-        self.width = self.control_var(self.width, 400, 1000, 800)
-
-        self.height = self.get_property("height")
-        self.height = self.control_var(self.height, 400, 1000, 600)
-
-        self.cellSize = self.get_property("cellSize")
-        self.cellSize = self.control_var(self.cellSize, 5, 50, 10)
-
         self.numberOfCellGenerate = self.get_property("numberOfCellGenerate")
         self.numberOfCellGenerate = self.control_var(self.numberOfCellGenerate, 50, 2000, 750)
 
