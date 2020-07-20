@@ -12,9 +12,9 @@ class Board:
     def __init__(self):
         conf = FileInfos()
         # Get .conf variables
-        self.width = conf.width
-        self.height = conf.height
-        self.cellSize = conf.cellSize
+        self.width = 800
+        self.height = 600
+        self.cellSize = 10
         self.numberOfCellGenerate = conf.numberOfCellGenerate
         self.speed = conf.speed
 
